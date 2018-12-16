@@ -1,0 +1,269 @@
+#include<stdio.h>
+void printgrade(char a);
+int Degreestatus(int semester,float gpa,int status);
+void displaystatus(int status);
+void main()
+{
+float gpa,tgpa,cgpa=0,gpasum=0;int status=0,a=0,b=0,c=0,d=0,f=0,totalsubjects=0;
+char grade;
+printf("                         Welcome to GPA Assistant\n");
+printf("\n");
+int marks[8][7],i,j,sem,subjects;
+for(i=0;i<8;i++)
+{
+for(j=0;j<7;j++)
+{marks[i][j]=-1;}
+}
+printf("How many semesters have you completed?(max=8) : ");
+scanf("%d",&sem);
+float gpas[sem];
+printf("\n\n");
+for(i=0;i<sem;i++)
+{
+printf("                 *** Semester %d ***\n\n\n",i+1);
+printf("Enter the number of subjects in this semester: ");
+scanf("%d",&subjects);
+while((subjects<1)||(subjects>7))
+{
+printf("Please enter a valid number of subjects : ");
+scanf("%d",&subjects);
+}
+for(j=0;j<subjects;j++)
+{
+printf("Enter marks in subject# %d : ",j+1);
+scanf("%d",&marks[i][j]);
+while((marks[i][j]<1)||(marks[i][j]>100))
+{
+printf("Enter valid marks in subject# %d : ",j+1);
+scanf("%d",&marks[i][j]);
+}
+}
+printf("\n\n");
+}
+for(i=0;i<sem;i++)
+{
+    tgpa=0;
+printf("============================\n");
+printf("Semester #%d Result :\n",i+1);
+printf("============================\n");
+printf("Subject No# :           Subject Grade:    GPA:\n");
+for(j=0;j<7;j++)
+{
+if(marks[i][j]<101&&marks[i][j]>90)
+{
+grade='A';
+a=a+1;
+gpa=4.0;
+tgpa=tgpa+gpa;
+printf("%d                                ",j+1);
+printgrade(grade);
+printf("        %.1f",gpa);
+printf("     %d\n",marks[i][j]);
+}
+if(marks[i][j]<91&&marks[i][j]>85)
+{
+grade='a';
+a=a+1;
+gpa=3.7;
+tgpa=tgpa+gpa;
+printf("%d                                ",j+1);
+printgrade(grade);
+printf("        %.1f",gpa);
+printf("     %d\n",marks[i][j]);
+}
+if(marks[i][j]<86&&marks[i][j]>80)
+{
+b=b+1;
+grade='B';
+gpa=3.3;
+tgpa=tgpa+gpa;
+printf("%d                                ",j+1);
+printgrade(grade);
+printf("        %.1f",gpa);
+printf("     %d\n",marks[i][j]);
+}
+if(marks[i][j]<81&&marks[i][j]>75)
+{
+b=b+1;
+grade='b';
+gpa=3.0;
+tgpa=tgpa+gpa;
+printf("%d                                ",j+1);
+printgrade(grade);
+printf("        %.1f",gpa);
+printf("     %d\n",marks[i][j]);
+
+}
+if(marks[i][j]<76&&marks[i][j]>70)
+{
+b=b+1;
+grade='y';
+gpa=2.7;
+tgpa=tgpa+gpa;
+printf("%d                                ",j+1);
+printgrade(grade);
+printf("        %.1f",gpa);
+printf("     %d\n",marks[i][j]);
+
+}
+if(marks[i][j]<71&&marks[i][j]>65)
+{
+c=c+1;
+grade='C';
+gpa=2.3;
+tgpa=tgpa+gpa;
+printf("%d                                ",j+1);
+printgrade(grade);
+printf("        %.1f",gpa);
+printf("     %d\n",marks[i][j]);
+
+}
+if(marks[i][j]<66&&marks[i][j]>60)
+{
+    c=c+1;
+grade='c';
+gpa=2.0;
+tgpa=tgpa+gpa;
+printf("%d                                ",j+1);
+printgrade(grade);
+printf("        %.1f",gpa);
+printf("     %d\n",marks[i][j]);
+
+}
+if(marks[i][j]<61&&marks[i][j]>55)
+{
+c=c+1;
+grade='z';
+gpa=1.7;
+tgpa=tgpa+gpa;
+printf("%d                                ",j+1);
+printgrade(grade);
+printf("        %.1f",gpa);
+printf("     %d\n",marks[i][j]);
+}
+if(marks[i][j]<56&&marks[i][j]>49)
+{
+d=d+1;
+grade='D';
+gpa=1.3;
+tgpa=tgpa+gpa;
+printf("%d                                ",j+1);
+printgrade(grade);
+printf("        %.1f",gpa);
+printf("     %d\n",marks[i][j]);
+
+}
+if(marks[i][j]<50&&marks[i][j]>-1)
+{
+f=f+1;
+grade='F';
+gpa=0;
+tgpa=tgpa+gpa;
+printf("%d                                ",j+1);
+printgrade(grade);
+printf("        %.1f",gpa);
+printf("     %d\n",marks[i][j]);
+}
+if(marks[i][j]==-1)
+{
+    tgpa=tgpa/j;
+    gpasum=gpasum+(tgpa*(j));
+    totalsubjects=totalsubjects+j;
+    gpas[i]=tgpa;
+    cgpa=cgpa+tgpa;
+    break;
+}
+}
+printf("\n                        Semester GPA: %.1f\n",tgpa);
+printf("                                CGPA: %.1f\n",cgpa/(i+1));
+status=Degreestatus(i+1,tgpa,status);
+displaystatus(status);
+if(status==2)
+{
+if(i<4)
+printf("                          Start over in the first semester\n");
+else
+printf("                          Repeat this particular semester\n");
+}
+}
+printf("\nBar Chart Of Grades by groups\n");
+printf("Group A: ");
+for(i=1;i<=a;i++)
+printf("*");
+printf("\nGroup B: ");
+for(i=1;i<=b;i++)
+printf("*");
+printf("\nGroup C: ");
+for(i=1;i<=c;i++)
+printf("*");
+printf("\nGroup D: ");
+for(i=1;i<=d;i++)
+printf("*");
+printf("\nGroup F: ");
+for(i=1;i<=f;i++)
+printf("*");
+printf("\nList of GPAs in all the Semesters \n");
+for(i=0;i<sem;i++)
+{
+printf("GPA in semester %d is: %.1f\n",i+1,gpas[i]);
+}
+printf("\nWeighted CGPA is: %.1f",gpasum/totalsubjects);
+printf("\n\nPredicted GPA after Next Semester is Between %.1f to %.1f",(gpasum/totalsubjects),(gpasum/totalsubjects)*0.9);
+}
+void printgrade(char a)
+{
+if(a=='A')
+printf("A ");
+if(a=='a')
+printf("A-");
+if(a=='B')
+printf("B+");
+if(a=='b')
+printf("B ");
+if(a=='y')
+printf("B-");
+if(a=='C')
+printf("C+");
+if(a=='c')
+printf("C ");
+if(a=='z')
+printf("C-");
+if(a=='D')
+printf("D ");
+if(a=='F')
+printf("F ");
+}
+int Degreestatus(int semester,float gpa,int status)
+{
+if(status==0)
+{
+if(gpa<2)
+return(1);
+if(gpa>2)
+{
+if(semester==8)
+return(3);
+else return(0);
+}
+}
+if(status==1)
+{
+if(gpa<2)
+return(2);
+if(gpa>2)
+return(0);
+}
+}
+void displaystatus(int status)
+{
+if(status==0)
+printf("                        Degree Status: Continued\n");
+if(status==1)
+printf("                        Degree Status: Probation\n");
+if(status==3)
+printf("                        Degree Status: Completed\n");
+if(status==2)
+{
+printf("                        Degree Status: DI\n");
+}
+}
